@@ -1,0 +1,14 @@
+<annotation>
+	<folder></folder>
+	<filename>1478898722214988025_jpg.rf.0d1d28e5937129dda32d9aa57f616003.jpg</filename>
+	<path>1478898722214988025_jpg.rf.0d1d28e5937129dda32d9aa57f616003.jpg</path>
+	<source>
+		<database>roboflow.ai</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+</annotation>
