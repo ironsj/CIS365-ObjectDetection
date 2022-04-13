@@ -6,7 +6,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
 import pathlib
 
-IMAGE_PATHS = ["images/cars-driving.jpg", "TensorFlow/workspace/images/testing_images/testing (24).jpg"]
+IMAGE_PATHS = ["input/testing_images/testing (123).jpg", "input/testing_images/testing (24).jpg"]
 
 PATH_TO_SAVED_MODEL = "./TensorFlow/workspace/exported-models/export1" + "/saved_model"
 
@@ -51,7 +51,7 @@ def load_image_into_numpy_array(path):
 for image_path in IMAGE_PATHS:
 
     print('Running inference for {}... '.format(image_path), end='')
-
+    
     image_np = load_image_into_numpy_array(image_path)
 
     # Things to try:

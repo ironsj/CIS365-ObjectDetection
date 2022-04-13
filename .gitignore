@@ -1,5 +1,8 @@
 *.record
 *.data-00000-of-00001
+!TensorFlow/workspace/exported-models/export1/checkpoint/ckpt-0.data-00000-of-00001
+!TensorFlow/workspace/exported-models/export1/saved_model/variables/variables.data-00000-of-00001
+*.mp4
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
