@@ -85,8 +85,10 @@ class TFObjectDetector():
     count = 0
 
     # Set output video writer with codec
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(output_path, fourcc, 25.0, (videoWidth, videoHeight))
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter(output_path, fourcc, 15, (videoHeight, videoWidth))
+    print(videoWidth)
+    print(videoHeight)
     
     # Iterate over frames and pass each for prediction
     while frame_read:
@@ -96,6 +98,7 @@ class TFObjectDetector():
       
       # Write frame with predictions to video
       out.write(output_file)
+      cv2.imshow('frame', output_file)
       
       # Read next frame
       frame_read, image = vidcap.read()
@@ -107,4 +110,4 @@ class TFObjectDetector():
   
 if __name__ == '__main__':
   detector = TFObjectDetector()
-  detector.detect_video('input/160820_233_NYC_TimeSquare5_1080p.mp4', 'output/v1o.mp4')
+  detector.detect_video('input/istockphoto-1142262134-640_adpp_is.mp4', 'output/output.avi')

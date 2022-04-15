@@ -6,7 +6,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
 import pathlib
 
-IMAGE_PATHS = ["input/testing_images/testing (123).jpg", "input/testing_images/testing (24).jpg"]
+IMAGE_PATHS = ["input/testing_images/testing (123).jpg", "input/testing_images/testing (23).jpg"]
 
 PATH_TO_SAVED_MODEL = "./TensorFlow/workspace/exported-models/export1" + "/saved_model"
 
