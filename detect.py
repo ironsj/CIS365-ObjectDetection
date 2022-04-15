@@ -1,14 +1,17 @@
+import os
+os.add_dll_directory("C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.6/bin")
+
 import tensorflow as tf
 import time
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
-import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
 import pathlib
 
-IMAGE_PATHS = ["input/testing_images/testing (123).jpg", "input/testing_images/testing (23).jpg"]
+IMAGE_PATHS = ["input/610d9923-ece1-4596-ba42-c471616eae4f.jpg", "input/ogs-parking-lots-221.jpg"]
 
-PATH_TO_SAVED_MODEL = "./TensorFlow/workspace/exported-models/export1" + "/saved_model"
+PATH_TO_SAVED_MODEL = "./TensorFlow/workspace/exported-models/export2" + "/saved_model"
 
 print('Loading model...', end='')
 start_time = time.time()
