@@ -6,7 +6,7 @@ from object_detection.utils import visualization_utils as viz_utils
 category_index = label_map_util.create_category_index_from_labelmap("./TensorFlow/workspace/annotations/label_map.pbtxt",
                                                                     use_display_name=True)
 
-detect_fn = tf.saved_model.load("./TensorFlow/workspace/exported-models/export1" + "/saved_model")
+detect_fn = tf.saved_model.load("./TensorFlow/workspace/exported-models/export2" + "/saved_model")
 
 import cv2
 
@@ -54,7 +54,7 @@ while True:
           category_index,
           use_normalized_coordinates=True,
           max_boxes_to_draw=200,
-          min_score_thresh=.30,
+          min_score_thresh=.60,
           agnostic_mode=False)
 
     # Display output

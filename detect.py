@@ -91,7 +91,7 @@ for image_path in IMAGE_PATHS:
           category_index,
           use_normalized_coordinates=True,
           max_boxes_to_draw=200,
-          min_score_thresh=.30,
+          min_score_thresh=.60,
           agnostic_mode=False)
 
     plt.figure()
