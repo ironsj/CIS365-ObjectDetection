@@ -1,15 +1,16 @@
 import os
-os.add_dll_directory("C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.6/bin")
+# os.add_dll_directory("C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.6/bin")
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
 
 import tensorflow as tf
 import numpy as np
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
 
-category_index = label_map_util.create_category_index_from_labelmap("./TensorFlow/workspace/annotations/label_map.pbtxt",
+category_index = label_map_util.create_category_index_from_labelmap("../TensorFlow/workspace/annotations/label_map.pbtxt",
                                                                     use_display_name=True)
 
-detect_fn = tf.saved_model.load("./TensorFlow/workspace/exported-models/export2" + "/saved_model")
+detect_fn = tf.saved_model.load("../TensorFlow/workspace/exported-models/export2/saved_model")
 
 import cv2
 
