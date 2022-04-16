@@ -25,3 +25,6 @@ Jake Irons & Connor Boerma
 ```
 
 5. Change back to the root directory of the project. Then run `pip install -r requirements.txt`.
+
+
+We received our training and testing data from the [Udacity Self Driving Car Dataset](https://public.roboflow.com/object-detection/self-driving-car).
