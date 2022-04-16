@@ -39,7 +39,7 @@ detect_function = tf.saved_model.load('TensorFlow/workspace/exported-models/expo
 # Let user know the model has been successfully fetched
 end_time = time.time()
 elapsed_time = end_time - start_time
-print('Retreived in {} seconds'.format(elapsed_time))
+print('Retrieved in {} seconds'.format(elapsed_time))
 
 """
 LOAD LABELS

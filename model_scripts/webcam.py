@@ -32,7 +32,7 @@ detect_function = tf.saved_model.load('TensorFlow/workspace/exported-models/expo
 # Let user know the model has been successfully fetched
 end_time = time.time()
 elapsed_time = end_time - start_time
-print('Retreived in {} seconds'.format(elapsed_time))
+print('Retrvieed in {} seconds'.format(elapsed_time))
 
 """
 LOAD LABELS
@@ -56,7 +56,7 @@ DETECT IN VIDEO
 # Loop through each frame of input video and detect
 while True:
     # Read frame from video
-    image_np = cap.read()
+    ret, image_np = cap.read()
     image_np = np.array(image_np)
 
     # Convert frame to tensor object

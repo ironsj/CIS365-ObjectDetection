@@ -32,7 +32,7 @@ detect_function = tf.saved_model.load('TensorFlow/workspace/exported-models/expo
 # Let user know the model has been successfully fetched
 end_time = time.time()
 elapsed_time = end_time - start_time
-print('Retreived in {} seconds'.format(elapsed_time))
+print('Retrieved in {} seconds'.format(elapsed_time))
 
 """
 LOAD LABELS
@@ -43,7 +43,7 @@ category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_MODE
 """
 LOAD VIDEO. INSERT VIDEO PATH HERE.
 """
-PATH_TO_VIDEO = 'input/1743886525.mp4'
+PATH_TO_VIDEO = 'input/smaller.mp4'
 cap = cv2.VideoCapture(PATH_TO_VIDEO)
 # get video height and width for resizing
 videoWidth = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -55,7 +55,7 @@ DETECT IN VIDEO
 # Loop through each frame of input video and detect
 while True:
     # Read frame from video
-    image_np = cap.read()
+    ret, image_np = cap.read()
     image_np = np.array(image_np)
 
     # Convert frame to tensor object
@@ -87,7 +87,7 @@ while True:
           detections['detection_scores'],
           category_index,
           use_normalized_coordinates=True,
-          max_boxes_to_draw=100,
+          max_boxes_to_draw=200,
           min_score_thresh=.60,
           agnostic_mode=False)
 
