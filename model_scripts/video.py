@@ -1,45 +1,74 @@
 import os
-# os.add_dll_directory("C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.6/bin")
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
 import tensorflow as tf
-import numpy as np
+import time
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
-
-category_index = label_map_util.create_category_index_from_labelmap("../TensorFlow/workspace/annotations/label_map.pbtxt",
-                                                                    use_display_name=True)
-
-detect_fn = tf.saved_model.load("../TensorFlow/workspace/exported-models/export2/saved_model")
-
+import numpy as np
+import matplotlib
 import cv2
+matplotlib.use('TkAgg')
 
-cap = cv2.VideoCapture("../input/istockphoto-1142262134-640_adpp_is.mp4")
+# os.add_dll_directory("C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.6/bin")
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
+tf.get_logger().setLevel('ERROR')           # Suppress TensorFlow logging (2)
+
+# Enables GPU dynamic memory allocation (COMMENT OUT IF NOT APPLICABLE)
+gpus = tf.config.experimental.list_physical_devices('GPU')
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
+
+"""
+LOAD MODEL
+"""
+PATH_TO_SAVED_MODEL = "TensorFlow/workspace/exported-models/export2/saved_model"
+
+# Let user know the model loading has begun
+print('Loading vehicle detection model...', end='')
+start_time = time.time()
+
+# Load saved model and build the detection function
+detect_function = tf.saved_model.load('TensorFlow/workspace/exported-models/export2/saved_model')
+
+# Let user know the model has been successfully fetched
+end_time = time.time()
+elapsed_time = end_time - start_time
+print('Retreived in {} seconds'.format(elapsed_time))
+
+"""
+LOAD LABELS
+"""
+PATH_TO_MODEL_LABELS = 'TensorFlow/workspace/annotations/label_map.pbtxt'
+category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_MODEL_LABELS, use_display_name=True)
+
+"""
+LOAD VIDEO. INSERT VIDEO PATH HERE.
+"""
+PATH_TO_VIDEO = 'input/1743886525.mp4'
+cap = cv2.VideoCapture(PATH_TO_VIDEO)
+# get video height and width for resizing
 videoWidth = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 videoHeight = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
+"""
+DETECT IN VIDEO
+"""
+# Loop through each frame of input video and detect
 while True:
-    # Read frame from camera
-    ret, image_np = cap.read()
+    # Read frame from video
+    image_np = cap.read()
     image_np = np.array(image_np)
 
+    # Convert frame to tensor object
     input_tensor = tf.convert_to_tensor(image_np)
     # The model expects a batch of images, so add an axis with `tf.newaxis`.
     input_tensor = input_tensor[tf.newaxis, ...]
 
-    """
-    # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-    image_np_expanded = np.expand_dims(image_np, axis=0)
+    # Pass frame into model
+    detections = detect_function(input_tensor)
 
-    # Things to try:
-    # Flip horizontally
-    # image_np = np.fliplr(image_np).copy()
-
-    # Convert image to grayscale
-    # image_np = np.tile(
-    #     np.mean(image_np, 2, keepdims=True), (1, 1, 3)).astype(np.uint8)
-
-    input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)"""
-    detections=detect_fn(input_tensor)
+    # All outputs are batches tensors.
+    # Convert to numpy arrays, and take index [0] to remove the batch dimension.
+    # We're only interested in the first num_detections.
     num_detections = int(detections.pop('num_detections'))
     detections = {key: value[0, :num_detections].numpy()
                    for key, value in detections.items()}
@@ -49,6 +78,8 @@ while True:
     detections['detection_classes'] = detections['detection_classes'].astype(np.int64)
     image_np_with_detections = image_np.copy()
 
+    # puts class labels, probabilties (score) and boxes on image
+    # you can adjust the minimum threshold and number of boxes for varying results
     viz_utils.visualize_boxes_and_labels_on_image_array(
           image_np_with_detections,
           detections['detection_boxes'],
@@ -56,13 +87,14 @@ while True:
           detections['detection_scores'],
           category_index,
           use_normalized_coordinates=True,
-          max_boxes_to_draw=200,
+          max_boxes_to_draw=100,
           min_score_thresh=.60,
           agnostic_mode=False)
 
     # Display output
-    cv2.imshow('object detection', cv2.resize(image_np_with_detections, (videoWidth, videoHeight)))
+    cv2.imshow('Vehicle Detection', cv2.resize(image_np_with_detections, (videoWidth, videoHeight)))
 
+    # Exit video by pressing 'q'
     if cv2.waitKey(25) & 0xFF == ord('q'):
         break
 
