@@ -22,7 +22,7 @@ for gpu in gpus:
 SELECT IMAGES
 """
 # You may add as many image paths to the array as you wish.
-IMAGE_PATHS = ['input/testing_images/testing (38).jpg', 'input/testing_images/testing (107).jpg']
+IMAGE_PATHS = ['input/testing_images/testing (19).jpg', 'input/Whats-your-take-on-this-truckers-merge-maneuver-caught-on-dash-cam.png']
 
 """
 LOAD MODEL

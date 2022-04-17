@@ -43,7 +43,7 @@ category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_MODE
 """
 LOAD VIDEO. INSERT VIDEO PATH HERE.
 """
-PATH_TO_VIDEO = 'input/smaller.mp4'
+PATH_TO_VIDEO = 'input/dash.mp4'
 cap = cv2.VideoCapture(PATH_TO_VIDEO)
 # get video height and width for resizing
 videoWidth = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
