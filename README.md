@@ -26,5 +26,15 @@ Jake Irons & Connor Boerma
 
 5. Change back to the root directory of the project. Then run `pip install -r requirements.txt`.
 
+### How To Pass Images into the Model
+1. From within the root directory, locate the *model_scripts* directory. Within that directory, locate *picture.py*.
+2. For any images you would like to pass into the model, insert the path to them in the *IMAGE_PATH* array near the top of the file. We already have some images found in the *input* directory which can be found in the root directory. You may use your own images if you wish. Then, save the file after editing.
+3. From the root directory, run `python model_scripts/picture.py`.
+
+### How To Pass Videos into the Model
+1. From within the root directory, locate the *model_scripts* directory. Within that directory, locate *picture.py*.
+2. For any video you would like to pass into the model, set *PATH_TO_VIDEO* equal to a string containing the path to your video. You will need to import your own video into the project, as we could not push the large video files to Github. Then, save the file after editing. **WE ONLY TRIED RUNNING THIS SCRIPT WITH .MP4 FILES. WE SUGGEST YOU DO THE SAME AS WE DO NOT KNOW WHAT THE RESULTS WILL BE LIKE OTHERWISE**.
+3. From the root directory, run `python model_scripts/video.py`.
+To use your webcam with the model, just run `python model_scripts/webcam.py`.
 
 We received our training and testing data from the [Udacity Self Driving Car Dataset](https://public.roboflow.com/object-detection/self-driving-car).
